@@ -12,10 +12,12 @@ Examples:
 sayHello() //=> Hello!
 -----------------------------------------------------------------*/
 // Your solution for 00-sayHello (example) here:
+
 function sayHello() {
   return "Hello!"
 }
 
+sayHello();
 
 
 /*-----------------------------------------------------------------
@@ -34,7 +36,9 @@ addOne(-5) //=> -4
 -----------------------------------------------------------------*/
 // Your solution for 01-addOne here:
 
-
+function addOne (n) {
+  return num + 1;
+}
 
 
 /*-----------------------------------------------------------------
@@ -59,9 +63,15 @@ addTwoNumbers('Hello', 5) //=> NaN
 -----------------------------------------------------------------*/
 // Your solution for 02-addTwoNumbers here:
 
+function addTwoNumbers(a, b) {
+  if (typeof a === 'number' && typeof b === 'number') {
+    return a + b;
+  } else {
+    return NaN;
+  }
+}
 
-
-
+addTwoNumbers(5, 10) //=> 15
 
 
 /*-----------------------------------------------------------------
@@ -83,7 +93,13 @@ sumNumbers([]) //=> 0
 -----------------------------------------------------------------*/
 // Your solution for 03-sumNumbers here:
 
-
+function sumNumbers(nums) {
+  var sum = 0;
+  for(var i = 0; i < nums.length; i++) {
+    sum += nums[i];
+  }
+  return sum;
+}
 
 
 
@@ -106,7 +122,12 @@ add(7,-12) //=> -5
 -----------------------------------------------------------------*/
 // Your solution for 04-addList here:
 
-
+function addList() {
+  var sum = 0;
+  for (var i = 0; i < arguments.length; i++) {
+    sum += arguments[i];
+  }
+  return sum;
 
 
 /*-----------------------------------------------------------------
