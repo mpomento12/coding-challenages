@@ -39,6 +39,8 @@ function addOne (n) {
   return num + 1;
 }
 
+addOne(1)
+addOne(-5)
 
 /*-----------------------------------------------------------------
 Challenge: 02-addTwoNumbers
