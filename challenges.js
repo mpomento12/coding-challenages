@@ -14,7 +14,7 @@ sayHello() //=> Hello!
 // Your solution for 00-sayHello (example) here:
 
 function sayHello() {
-  return "Hello!"
+  return 'Hello!'
 }
 
 
