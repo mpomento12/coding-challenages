@@ -151,7 +151,10 @@ computeRemainder(4,0) //=> Infinity
 computeRemainder(10.5, 3) //=> 1.5
 -----------------------------------------------------------------*/
 // Your solution for 05-computeRemainder:
-
+function computeRemainder (dividend, divisor) {
+  if (divisor === 0) return Infinity
+return dividend - (math.floor(dividend / divisor)* divisor)
+}
 
 
 /*-----------------------------------------------------------------
@@ -173,6 +176,16 @@ range(5,2) //=> "First argument must be less than second"
 -----------------------------------------------------------------*/
 // Your solution for 06-range here:
 
+function range(start, finish) {
+  if (start > finish) return 'First argument must be less than second';
+  
+  var range = [];
+  for (var n = start; n < finish; n++) {
+    range.push(n);
+  }
+  
+  return range;
+}
 
   
   
@@ -195,7 +208,9 @@ reverseUpcaseString("SEI Rocks!"); //=> "!SKCOR IES"
 // Your solution for 07-reverseUpcaseString here:
 
 
-
+function reverseUpcaseString(str) {
+  return str.split('').reverse().map(c => c.toUpperCase()).join('');
+  }
 
 /*-----------------------------------------------------------------
 Challenge: 08-removeEnds

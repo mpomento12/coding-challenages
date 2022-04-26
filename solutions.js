@@ -39,7 +39,7 @@ function addOne(n) {
 }
 
 addOne(1)
-addOne(-5)
+
 /*-----------------------------------------------------------------
 Challenge: 02-addTwoNumbers
 
