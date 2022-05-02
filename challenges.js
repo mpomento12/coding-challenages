@@ -40,7 +40,6 @@ function addOne (n) {
 }
 
 addOne(1)
-addOne(-5)
 
 /*-----------------------------------------------------------------
 Challenge: 02-addTwoNumbers
@@ -209,8 +208,12 @@ reverseUpcaseString("SEI Rocks!"); //=> "!SKCOR IES"
 
 
 function reverseUpcaseString(str) {
-  return str.split('').reverse().map(c => c.toUpperCase()).join('');
+  var results = '';
+  for (var i = 0; i < str.length; i++) {
+    results = str.charAt(i).toUpperCase() + results;
   }
+  return results;
+}
 
 /*-----------------------------------------------------------------
 Challenge: 08-removeEnds
@@ -232,9 +235,12 @@ removeEnds('a'); //=> "" (empty string)
 
 function removeEnds(str) {
   if (str.length < 3) return '';
- return str.substr(1, str.length - 2);
+  var result= '';
+  for (var i = 1; i < str.length - 1; i++) {
+    result += str.charAt(i);
+  }
+  return result;
 }
-
 
 /*-----------------------------------------------------------------
 Challenge: 09-charCount
@@ -259,10 +265,17 @@ charCount('Today is fantastic!') //=> { T: 1, o: 1, d: 1, a: 3, y: 1, ' ': 2, i:
 
 
 function charCount(str) {
-  return str.split('').reduce(function(countObj, char) {
-    countObj[char] = countObj[char] ? ++countObj[char] : 1;
-    return countObj;
-  }, {});
+  var result = {};
+  for (var i = 0; i < str.length; i++) {
+    var char = str.charAt(i);
+    // already seen this char?
+    if (result[char]) {
+      result[char]++;
+    } else {
+      result[char] = 1;
+    }
+  }
+  return result;
 }
 
 
@@ -291,7 +304,11 @@ formatWithPadding(1234, '*', 3); //=> "1234"
 
 
 function formatWithPadding(int, char, length) {
-  return int.toFixed(0).padStart(length, char);
+  var result = int.toFixed(0);
+  while (result.length < length) {
+    result = char + result;
+  }
+  return result;
 }
 
 
@@ -319,6 +336,7 @@ isPalindrome(''); //=> true
 
 function isPalindrome(str) {
   str = str.toLowerCase();
+  // loop to replace spaces
   while (str.includes(' ')) str = str.replace(' ', '');
   for (var i = 0; i < Math.floor(str.length / 2); i++) {
     if (str.charAt(i) !== str.charAt(str.length - i - 1)) return false;
@@ -390,7 +408,7 @@ function mumble(str) {
     result += ((i || '') && '-') + str.charAt(i).repeat(i + 1);
   }
   return result;
-
+}
 
 
 /*-----------------------------------------------------------------
@@ -451,6 +469,8 @@ function mergeObjects(target, ...objects) {
   });
   return target;
 
+}
+
 
 /*-----------------------------------------------------------------
 Challenge: 16-findHighestPriced
@@ -486,7 +506,9 @@ findHighestPriced([
 -----------------------------------------------------------------*/
 // Your solution for 16-findHighestPriced here:
 
-
+function findHighestPriced(arr) {
+  return arr.reduce((highest, item) => item.price > highest.price ? item : highest);
+}
   
 
 
@@ -521,6 +543,13 @@ mapArray( ['rose', 'tulip', 'daisy'], function(f, i) {
 // Your solution for 17-mapArray here:
 
 
+function mapArray(arr, cb) {
+  var newArr = [];
+  arr.forEach(function(el, idx) {
+    newArr.push( cb(el, idx) );
+  });
+  return newArr;
+}
 
 
 
@@ -558,7 +587,13 @@ reduceArray( ['Yes', 'No', 'Yes', 'Maybe'], function(acc, v) {
 -----------------------------------------------------------------*/
 // Your solution for 18-reduceArray here:
 
-
+function reduceArray(arr, cb, initAcc) {
+  var acc = initAcc;
+  arr.forEach(function(el, idx) {
+    acc = cb(acc, el, idx);
+  });
+  return acc;
+}
 
 
 /*-----------------------------------------------------------------
@@ -589,7 +624,9 @@ flatten( [1, [2, [3, [4]]], 1, 'a', ['b', 'c']] );
 // Your solution for 19-flatten here:
 
 
-
+function flatten(arr) {
+  return arr.reduce((flatArr, elem) => flatArr.concat(Array.isArray(elem) ? flatten(elem): elem), []);
+}
 
 
 /*-----------------------------------------------------------------
