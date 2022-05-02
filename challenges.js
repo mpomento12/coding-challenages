@@ -230,7 +230,10 @@ removeEnds('a'); //=> "" (empty string)
 // Your solution for 08-removeEnds here:
 
 
-
+function removeEnds(str) {
+  if (str.length < 3) return '';
+ return str.substr(1, str.length - 2);
+}
 
 
 /*-----------------------------------------------------------------
@@ -255,6 +258,12 @@ charCount('Today is fantastic!') //=> { T: 1, o: 1, d: 1, a: 3, y: 1, ' ': 2, i:
 // Your solution for 09-charCount here:
 
 
+function charCount(str) {
+  return str.split('').reduce(function(countObj, char) {
+    countObj[char] = countObj[char] ? ++countObj[char] : 1;
+    return countObj;
+  }, {});
+}
 
 
 
@@ -281,7 +290,9 @@ formatWithPadding(1234, '*', 3); //=> "1234"
 // Your solution for 10-formatWithPadding here:
 
 
-
+function formatWithPadding(int, char, length) {
+  return int.toFixed(0).padStart(length, char);
+}
 
 
 
@@ -306,7 +317,14 @@ isPalindrome(''); //=> true
 -----------------------------------------------------------------*/
 // Your solution for 11-isPalindrome here:
 
-
+function isPalindrome(str) {
+  str = str.toLowerCase();
+  while (str.includes(' ')) str = str.replace(' ', '');
+  for (var i = 0; i < Math.floor(str.length / 2); i++) {
+    if (str.charAt(i) !== str.charAt(str.length - i - 1)) return false;
+  }
+  return true;
+}
 
 
 
@@ -335,7 +353,14 @@ hammingDistance('abc', 'ab'); //=> NaN
 // Your solution for 12-hammingDistance here:
 
 
-
+function hammingDistance(s1, s2) {
+  if (s1.length !== s2.length) return NaN;
+  var count = 0;
+  for (var i = 0; i < s1.length; i++) {
+    if (s1.charAt(i) !== s2.charAt(i)) count++;
+  }
+  return count;
+}
 
 
 
@@ -359,7 +384,12 @@ mumble('!A 2'); //=> '!-AA-   -2222'
 -----------------------------------------------------------------*/
 // Your solution for 13-mumble here:
 
-
+function mumble(str) {
+  var result = '';
+  for (var i = 0; i < str.length; i++) {
+    result += ((i || '') && '-') + str.charAt(i).repeat(i + 1);
+  }
+  return result;
 
 
 
@@ -382,6 +412,12 @@ fromPairs([ ['name', 'Sam"], ['age', 24], ['name', 'Sally'] ]) //=> { name: "Sal
 // Your solution for 14-fromPairs here:
 
 
+function fromPairs(arr) {
+  return arr.reduce((obj, kvArr) => {
+      obj[kvArr[0]] = kvArr[1];
+      return obj;
+  }, {});
+}
 
 
 
@@ -406,7 +442,14 @@ mergeObjects({a: 1, b: 2, c: 3}, {d: 4}, {b: 22, d: 44});  //=> {a: 1, b: 22, c:
 // Your solution for 15-mergeObjects here:
 
 
-
+function mergeObjects(target, ...objects) {
+  objects.forEach(function(obj) {
+    // using ES2015's 'for in' loop
+    for(var key in obj) {
+      target[key] = obj[key];
+    }
+  });
+  return target;
 
 
 /*-----------------------------------------------------------------
@@ -858,4 +901,3 @@ totalTaskTime( [2, 2, 3, 3, 4, 4], 2 ) //=> 9
 totalTaskTime( [5, 2, 6, 8, 7, 2], 3 ) // => 12
 -----------------------------------------------------------------*/
 // Your solution for 30- here:
-
