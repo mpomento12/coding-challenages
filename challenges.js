@@ -150,9 +150,10 @@ computeRemainder(4,0) //=> Infinity
 computeRemainder(10.5, 3) //=> 1.5
 -----------------------------------------------------------------*/
 // Your solution for 05-computeRemainder:
-function computeRemainder (dividend, divisor) {
-  if (divisor === 0) return Infinity
-return dividend - (math.floor(dividend / divisor)* divisor)
+
+function computeRemainder(dividend, divisor) {
+  if (divisor === 0) return Infinity;
+  return dividend % divisor;
 }
 
 
@@ -649,7 +650,13 @@ isPrime(200) //=> false
 -----------------------------------------------------------------*/
 // Your solution for 20-isPrime here:
 
-
+function isPrime(n) {
+  if (n < 2 || !Number.isInteger(n)) return false;
+  for (var i = 2; i <= n / 2; i++) {
+    if (Number.isInteger(n / i)) return false;
+  }
+  return true;
+}
   
 
 
@@ -678,7 +685,21 @@ primeFactors(200) //=> [2, 2, 2, 5, 5]
 // Your solution for 21-primeFactors here:
 
 
-
+function primeFactors(n) {
+  var factors = [];
+  if (n < 2 || !Number.isInteger(n)) return factors;
+  var divisor = 2;
+  while (n >= divisor * divisor) {
+    if (Number.isInteger(n / divisor)) {
+      factors.push(divisor);
+      n = n / divisor;
+    } else {
+      divisor++;
+    }
+  }
+  factors.push(n);
+  return factors;
+}
 
 
 /*-----------------------------------------------------------------
@@ -704,7 +725,16 @@ intersection([1, 'a', true, 1, 1], [true, 1, 'b', 1]) //=> [1, true, 1]
 
 
 
-
+function intersection(a1, a2) {
+  var result = [];
+  // create copy of 2nd array for purpose of handling dups
+  var _a2 = [...a2];
+  a1.forEach(val => {
+    var idx = _a2.indexOf(val);
+    if (idx > -1) result.push(_a2.splice(idx, 1)[0]);
+  });
+  return result;
+}
 
 
 
@@ -731,7 +761,22 @@ balancedBrackets( '[({}[])]' ) // => true
 // Your solution for 23-balancedBrackets here:
 
 
-
+function balancedBrackets(str) {
+  // can't be balanced if string odd in length
+  if (str.length % 2) return false;
+  var stack = [];
+  for (var i = 0; i < str.length; i++) {
+    var b = str.charAt(i);
+    if ( '([{'.includes(b) ) {
+      // add opening brackets to the stack
+      stack.push(b);
+    } else {
+      // not an opening bracket, so remove last opening and check if matched
+      if (!'() {} []'.includes(stack.pop() + b)) return false;
+    }
+  }
+  return true;
+}
 
   
 
@@ -761,7 +806,17 @@ isWinningTicket( [ ['ABC', 66], ['dddd', 15], ['Hello', 108] ] ) // => false
 -----------------------------------------------------------------*/
 // Your solution for 24-isWinningTicket here:
 
-
+function isWinningTicket(ticket){
+  var winner = true;
+  for (var i = 0; i < ticket.length; i++) {
+    var charFromNumber = String.fromCharCode(ticket[i][1]);
+    if (!ticket[i][0].includes(charFromNumber)) {
+      winner = false;
+      break;
+    }
+  }
+  return winner;
+}
 
 
 
@@ -791,7 +846,9 @@ getNumForIP( '10.0.0.1' ) // => 167772161
 -----------------------------------------------------------------*/
 // Your solution for 25-getNumForIP here:
 
-
+function getNumForIP(ip) {
+    return ip.split('.').reverse().reduce((sum, chunk, idx) => sum + parseInt(chunk) * 256**idx, 0);
+  }
 
 
 /*-----------------------------------------------------------------
@@ -819,7 +876,11 @@ toCamelCase( 'A_b_c' ) // => 'ABC'
 -----------------------------------------------------------------*/
 // Your solution for 26-toCamelCase here:
 
-
+function toCamelCase(str) {
+  return str.replace(/[_-]\w/g, function(match) {
+    return match.charAt(1).toUpperCase();
+  });
+}
 
 
 
@@ -851,6 +912,9 @@ countTheBits( 65535 )  //=> 16
 
 
 
+function countTheBits(int) {
+  return int.toString(2).split('').filter(bit => bit === '1').length;
+}
 
 
 /*-----------------------------------------------------------------
